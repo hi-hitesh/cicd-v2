@@ -1,0 +1,38 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  push:
+    branches:    
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - '!prod'     # excludes master
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux]
+    strategy:
+      matrix:
+        node-version: ['14.19.3']
+
+    steps:
+    - uses: AutoModality/action-clean@v1
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.10.0
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+ 
+    - name: Upgrade NPM
+      run: npm install -g npm
+    - run: npm ci
+    - name: Copy code from Github Workspace
+      run: |
+          echo "$USER"
+          sudo cp -r ${GITHUB_WORKSPACE} /home/ubuntu/
+          kill -kill `lsof -t -i tcp:3005`
+          node index.js
