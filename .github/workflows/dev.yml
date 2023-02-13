@@ -1,6 +1,6 @@
 # .github/workflows/example-2.yml
 
-name: Manual Inputs
+name: Dev Deployment
 on:
   workflow_dispatch:
     inputs:
@@ -38,4 +38,4 @@ jobs:
         run: |
           sudo cp -r ${GITHUB_WORKSPACE} ~/dev/
           cd ~/dev/cicd-v2
-          pm2 restart cicd-v2-test
+          pm2 start pm2.config.js
