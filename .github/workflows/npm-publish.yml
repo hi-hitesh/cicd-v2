@@ -19,17 +19,18 @@ jobs:
         node-version: ['14.19.3']
 
     steps:
+    - uses: actions/checkout@v2
     - name: Use Node.js 14.10.0
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
- 
+        
     - name: Upgrade NPM
       run: npm install -g npm
     - run: npm ci
-    - name: Copy code from Github Workspace
+    - name: Copy Code From Github Workspace
       run: |
-          echo "$USER"
           sudo cp -r ${GITHUB_WORKSPACE} /home/ubuntu/
-          node index.js
+          cd ~/cicd-v2
+          forever restart ./index.js
