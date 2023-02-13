@@ -54,9 +54,9 @@ jobs:
           if [[ ${{ github.event.inputs.deployToEnv }} == dev ]]; then
             sudo cp -r ${GITHUB_WORKSPACE} ~/dev/
             cd ~/dev/cicd-v2
-            pm2 start pm2.config.js
+            pm2 start pm2.config.js --dev
           else
             sudo cp -r ${GITHUB_WORKSPACE} ~/uat/
             cd ~/uat/cicd-v2
-            pm2 start pm2.config.js
+            pm2 start pm2.config.js --env uat
           fi
