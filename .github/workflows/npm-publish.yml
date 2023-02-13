@@ -33,4 +33,3 @@ jobs:
       run: |
           sudo cp -r ${GITHUB_WORKSPACE} ~/app/
           cd ~/app/cicd-v2
-          forever restart ./index.js
