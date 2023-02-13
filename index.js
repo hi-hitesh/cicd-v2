@@ -4,7 +4,7 @@ require('dotenv').config();
 const port = process.env.PORT || 3005;
 
 app.get('/status', (req, res) => {
-  return res.send('Ok');
+  return res.send('Ok.!');
 });
 
 app.get('/', (req, res) => {
