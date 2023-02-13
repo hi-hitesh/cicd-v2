@@ -2,4 +2,4 @@
 
 CICD implementation
 
-Manual cicd for dev
+Manual cicd for dev env
