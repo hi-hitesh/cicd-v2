@@ -19,8 +19,6 @@ jobs:
         node-version: ['14.19.3']
 
     steps:
-    - uses: AutoModality/action-clean@v1
-    - uses: actions/checkout@v2
     - name: Use Node.js 14.10.0
       uses: actions/setup-node@v2
       with:
@@ -34,5 +32,4 @@ jobs:
       run: |
           echo "$USER"
           sudo cp -r ${GITHUB_WORKSPACE} /home/ubuntu/
-          kill -kill `lsof -t -i tcp:3005`
           node index.js
