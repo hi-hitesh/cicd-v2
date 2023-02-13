@@ -2,4 +2,4 @@
 
 CICD implementation
 
-Manual cicd for dev env
+Manual cicd for uat env
