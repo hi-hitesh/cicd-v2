@@ -1,5 +1,3 @@
-# .github/workflows/example-2.yml
-
 name: Final Manual Deployment
 on:
   workflow_dispatch:
@@ -19,13 +17,6 @@ on:
         description: Bump Version
         default: v1.0.0
         required: true
-# jobs:
-#   bump-version:
-#     name: Bump Package Version
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Example variable usage
-#         run: git tag ${{ github.event.inputs.version }}
 
 jobs:
   build:
@@ -50,11 +41,9 @@ jobs:
           UAT_ENV: ${{ secrets.UAT_ENV }}
         run: |
           if [[ ${{ github.event.inputs.deployToEnv }} == dev ]]; then
-            cd ~/dev
-            ls -la
-            sudo echo "${DEV_ENV}" > /home/ubuntu/dev/cicd-v2/.env
+            sudo echo "${DEV_ENV}" > ~/dev/cicd-v2
           else
-            sudo echo "${UAT_ENV}" > /home/ubuntu/uat/cicd-v2/.env
+            sudo echo "${UAT_ENV}" > ~/uat/cicd-v2
           fi
 
       - name: Upgrade NPM

@@ -2,4 +2,5 @@
 
 CICD implementation
 
-Manual cicd for dev env
+Functionality
+User can select branch
