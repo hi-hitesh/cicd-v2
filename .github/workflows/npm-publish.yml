@@ -34,3 +34,4 @@ jobs:
       run: |
           sudo cp -r ${GITHUB_WORKSPACE} ~/app/
           cd ~/app/cicd-v2
+          pm2 restart cicd-v2-test
