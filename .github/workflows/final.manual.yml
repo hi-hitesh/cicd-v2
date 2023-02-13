@@ -9,10 +9,11 @@ on:
         type: choice
         description: Select Environment to deploy to
         required: true
-        default: devs
+        default: dev
         options:
-          - monalisa
-          - cschleiden
+          - dev
+          - uat
+          - prod
       #Input for Version for future use
       version:
         description: Bump Version
