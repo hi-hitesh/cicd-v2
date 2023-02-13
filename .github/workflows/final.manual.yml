@@ -50,6 +50,8 @@ jobs:
           UAT_ENV: ${{ secrets.UAT_ENV }}
         run: |
           if [[ ${{ github.event.inputs.deployToEnv }} == dev ]]; then
+            cd ~/dev
+            ls -la
             sudo echo "${DEV_ENV}" > /home/ubuntu/dev/cicd-v2/.env
           else
             sudo echo "${UAT_ENV}" > /home/ubuntu/uat/cicd-v2/.env
