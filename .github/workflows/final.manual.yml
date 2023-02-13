@@ -1,18 +1,19 @@
 # .github/workflows/example-2.yml
 
-name: Dev Deployment
+name: Final Manual Deployment
 on:
   workflow_dispatch:
     inputs:
+      #Input for Enviroment
       deployToEnv:
+        type: choice
         description: Select Environment to deploy to
-        default: dev
         required: true
+        default: devs
         options:
-          - dev
-          - uat
-          - prod
-
+          - monalisa
+          - cschleiden
+      #Input for Version for future use
       version:
         description: Bump Version
         default: v1.0.0
