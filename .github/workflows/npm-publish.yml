@@ -31,6 +31,6 @@ jobs:
     - run: npm ci
     - name: Copy Code From Github Workspace
       run: |
-          sudo cp -r ${GITHUB_WORKSPACE} /home/ubuntu/
-          cd ~/cicd-v2
+          sudo cp -r ${GITHUB_WORKSPACE} ~/app/
+          cd ~/app/cicd-v2
           forever restart ./index.js
