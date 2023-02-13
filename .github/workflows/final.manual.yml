@@ -29,7 +29,8 @@ on:
 
 jobs:
   build:
-    if: github.repository == 'octo-org/octo-repo-prod'
+    if: |
+      github.event.inputs.deployToEnv == 'dev' || github.event.inputs.deployToEnv == 'uat'
     runs-on: [self-hosted, dev, linux]
     strategy:
       matrix:
@@ -43,11 +44,28 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      - name: Copy env fron Secrets
+        env:
+          DEV_ENV: ${{ secrets.DEV_ENV }}
+          UAT_ENV: ${{ secrets.UAT_ENV }}
+        run: |
+          if [[ ${{ github.event.inputs.deployToEnv }} == 'dev' ]]; then
+            echo "${DEV_ENV}" > ~/dev/cicd-v2/.env
+          else
+            echo "${UAT_ENV}" > ~/uat/cicd-v2/.env
+          fi
+
       - name: Upgrade NPM
         run: npm install -g npm
       - run: npm ci
       - name: Copy Code From Github Workspace
         run: |
-          sudo cp -r ${GITHUB_WORKSPACE} ~/dev/
-          cd ~/dev/cicd-v2
-          pm2 start pm2.config.js
+          if [[ ${{ github.event.inputs.deployToEnv }} == 'dev' ]]; then
+            sudo cp -r ${GITHUB_WORKSPACE} ~/dev/
+            cd ~/dev/cicd-v2
+            pm2 start pm2.config.js
+          else
+            sudo cp -r ${GITHUB_WORKSPACE} ~/uat/
+            cd ~/uat/cicd-v2
+            pm2 start pm2.config.js
+          fi
